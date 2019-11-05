@@ -36,7 +36,9 @@ os.environ['MXNET_CUDNN_AUTOTUNE_DEFAULT'] = '0'
 os.environ['MXNET_ENABLE_GPU_P2P'] = '0'
 cur_path = os.path.abspath(os.path.dirname(__file__))
 data_names = ['data', 'im_info']
-root = '/dccstor/jsdata1/dev/RepMet_project/RepMet_CVPR19'
+#root = '/dccstor/jsdata1/dev/RepMet_project/RepMet_CVPR19'
+root = '/home/jyutsehchi/proj/RepMet/'
+
 
 # ------------------------------------------------------------------------------------------------------
 
@@ -747,6 +749,11 @@ roidb = roidb_data['roidb']
 cls2img = roidb_data['cls2img']
 roidb_classes = roidb_data['classes']
 test_cats, test_cats_names = names_list_to_indices(test_classes_fname, roidb_classes)
+
+print("replacing roidb[image] path.....")
+for roii in roidb:
+    roii['image'] = roii['image'].replace("/dccstor/leonidka1/data/imagenet/", "/home/jyutsehchi/proj/datasets/ILSVRC2017_CLS-LOC/")
+print("DONE replacing roidb[image] path.....")
 
 if args.validate == 1:
     with open(train_objects_fname, 'rb') as fid:
